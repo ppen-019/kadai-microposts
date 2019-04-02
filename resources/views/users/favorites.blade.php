@@ -11,10 +11,10 @@
             <ul class="list-unstyled">
                 @foreach ($favorites as $favorite)
                 <li class="media mb-3">
-                    <img class="mr-2 rounded" src="{{ Gravatar::src($user->email, 50) }}" alt="">
+                    <img class="mr-2 rounded" src="{{ Gravatar::src($favorite->user->email, 50) }}" alt="">
                     <div class="media-body">
                         <div>
-                            {!! link_to_route('users.show', $favorite->user_id, ['id' => $favorite->user_id]) !!} <span class="text-muted">posted at {{ $favorite->created_at }}</span>
+                            {!! link_to_route('users.show', $favorite->user->name, ['id' => $favorite->user_id]) !!} <span class="text-muted">posted at {{ $favorite->created_at }}</span>
                         <!-- ↑怪しい！！！！！-->
                         </div>
                         <div>
