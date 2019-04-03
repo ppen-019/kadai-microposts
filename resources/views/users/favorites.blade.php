@@ -23,7 +23,7 @@
                         <div class="d-flex flex-row mx-2">
                             @include('favorite.favorite_button', ['micropost' => $favorite])
                             @if (Auth::id() == $favorite->user_id)
-                                {!! Form::open(['route' => ['microposts.destroy', $favorite->micropost_id], 'method' => 'delete']) !!}
+                                {!! Form::open(['route' => ['microposts.destroy', $favorite->id], 'method' => 'delete']) !!}
                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                 {!! Form::close() !!}
                             @endif
