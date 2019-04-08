@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;//0407追記
 
 class MicropostsController extends Controller
 {
@@ -25,13 +26,19 @@ class MicropostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'content' => 'required|max:191',
+            'content' => 'required_without:image_url|max:191',
+            'image_url' => 'required_without:content|image|file',
         ]);
-
+        
+        if (file_exists($request->image_url)){
+            $path = $request->file('image_url')->store('public/micropost_images');  
+        }
+        
         $request->user()->microposts()->create([
             'content' => $request->content,
+            'image_url' => $path,
         ]);
-
+        
         return back();
     }
     
@@ -41,6 +48,7 @@ class MicropostsController extends Controller
 
         if (\Auth::id() === $micropost->user_id) {
             $micropost->delete();
+            Storage::delete($micropost->image_url);
         }
 
         return back();

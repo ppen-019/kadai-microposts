@@ -37,4 +37,6 @@ Route::group(['middleware' => ['auth']], function (){
     });
     
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
+    Route::get('upload', 'UploadController@create');//0407追記
+    Route::post('upload', 'UploadController@store');//0407追記
 });

@@ -7,7 +7,14 @@
                     {!! link_to_route('users.show', $micropost->user->name, ['id' => $micropost->user->id]) !!} <span class="text-muted">posted at {{ $micropost->created_at }}</span>
                 </div>
                 <div>
-                    <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
+                    @if ($micropost->content)
+                        <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
+                    @endif
+                </div>
+                <div>
+                    @if ($micropost->image_url)
+                        <p><img src ="{{ Storage::url($micropost->image_url) }}" height="150"></p>
+                    @endif
                 </div>
                 <div class="d-flex flex-row mx-2">
                     @include('favorite.favorite_button', ['micropost' => $micropost])

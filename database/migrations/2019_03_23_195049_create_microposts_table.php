@@ -16,7 +16,7 @@ class CreateMicropostsTable extends Migration
         Schema::create('microposts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
