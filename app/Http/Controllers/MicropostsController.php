@@ -31,7 +31,29 @@ class MicropostsController extends Controller
         ]);
         
         if (file_exists($request->image_url)){
-            $path = $request->file('image_url')->store('public/micropost_images');  
+            //$request->image_urlキーには画像ファイル？仮置き場のURL?画像ファイルの名前？が入っている
+            
+            //$path = Storage::disk('s3')->put('micropost_images', $request->image_url);
+            //↑をしてbladeで{{ $micropost->image_url }}するのが一番近そう、画像URLは下記。バケット名はない。「storage」や無駄な「/」が出ない。
+            //http://734d14（中略）9c2.vfs.cloud9.us-east-1.amazonaws.com/micropost_images/ssapT7FbZGbO9TlLf5Q3PYRxTQY7BAHEmS617Lyx.jpeg
+            
+            //↓S3に保存できず。S3に記載のオブジェクトURLを表示させたのと同じThis XML file does not appear to have any style information associated with it. エラー。
+            //$image = $request->file('image_url'); //イメージ取得
+            //Storage::disk('s3')->put('micropost_images', $image);
+            //$url = Storage::disk('s3')->url($image);
+            
+            //↓過去に試して失敗したコード
+            //$image = $request->file('image_url');
+            //$path = Storage::disk('s3')->putFile('micropost_images', $image, 'public');
+            //$path = $request->file('imge_url')->store('micropost_images');
+            //$url = Storage::disk('s3')->url($path);
+            
+            //↓S3への保存だけは成功したコード
+            //Storage::disk('s3')->put('micropost_images', $request->image_url);
+            
+            //↓成功コード
+            $path = Storage::disk('s3')->put('micropost_images', $request->image_url, 'public');
+            //$url = Storage::url($request->image_url);をすると表示された画像URLがhttp://734d14（中略）9c2.vfs.cloud9.us-east-1.amazonaws.com/storage//tmp/phpv2r6Zpに。storageら辺が変。
         }
         
         $request->user()->microposts()->create([
@@ -48,7 +70,9 @@ class MicropostsController extends Controller
 
         if (\Auth::id() === $micropost->user_id) {
             $micropost->delete();
-            Storage::delete($micropost->image_url);
+            //↓s3を消せないコード。エラーがでないからアクセスは出来ている？ローカル保存時は同じコードで消せた
+            //Storage::delete($micropost->image_url);
+            Storage::disk('s3')->delete($micropost->image_url);
         }
 
         return back();

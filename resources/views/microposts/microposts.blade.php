@@ -13,7 +13,12 @@
                 </div>
                 <div>
                     @if ($micropost->image_url)
-                        <p><img src ="{{ Storage::url($micropost->image_url) }}" height="150"></p>
+                        <!-- ↓成功したコード-->
+                        <p><img src="{{ env('IMAGE_URL') . $micropost->image_url }}" height="150"></p>
+                        <!--<p><img src="{{ Storage::url($micropost->image_url) }}" height="150"></p>-->
+                        <!-- ↑表示されない-->
+                        <!-- ↑を{{ $micropost->image_url }}に変えても表示されない-->
+                        <!-- ↑を{{ asset($micropost->image_url) }}に変えても表示されない-->
                     @endif
                 </div>
                 <div class="d-flex flex-row mx-2">
