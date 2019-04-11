@@ -30,6 +30,8 @@ class MicropostsController extends Controller
             'image_url' => 'required_without:content|image|file',
         ]);
         
+        $path = '';    
+        
         if (file_exists($request->image_url)){
             //$request->image_urlキーには画像ファイル？仮置き場のURL?画像ファイルの名前？が入っている
             
