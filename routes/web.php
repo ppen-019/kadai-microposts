@@ -37,4 +37,5 @@ Route::group(['middleware' => ['auth']], function (){
     });
     
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
+    Route::post('search', 'SearchController@index')->name('search.index');//0411追記
 });

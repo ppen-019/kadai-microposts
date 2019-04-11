@@ -2,6 +2,13 @@
 
 @section('content')
     @if (Auth::check())
+        {!! Form::open(['route' => 'search.index']) !!}
+            <div class="form-group d-flex flex-row">
+                {!! Form::text('keyword', null, ['class' => 'form-control']) !!}
+                <!--代わりに日付検索。 {!! Form::file('image_url', ['class' => 'form-control col-sm-6']) !!}-->
+                {!! Form::submit('Search', ['class' => 'btn btn-primary btn-block col-sm-2']) !!}
+            </div>
+        {!! Form::close() !!}
         <div class="row">
             <aside class="col-sm-4">
                 @include('users.card', ['user' => Auth::user()])

@@ -14,7 +14,7 @@
                 <div>
                     @if ($micropost->image_url)
                         <!-- ↓成功したコード-->
-                        <p><img src="{{ env('IMAGE_URL') . $micropost->image_url }}" height="150"></p>
+                        <p><img src="{{ env('IMAGE_URL') . $micropost->image_url }}" height="150" class="mt-3"></p>
                         <!--<p><img src="{{ Storage::url($micropost->image_url) }}" height="150"></p>-->
                         <!-- ↑表示されない-->
                         <!-- ↑を{{ $micropost->image_url }}に変えても表示されない-->
