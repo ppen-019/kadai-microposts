@@ -21,11 +21,11 @@ class SearchController extends Controller
             
             //開始日の入力があれば時間を足す。
             if(!empty($date_from)){
-                $date_from .= ' 00-00-00';
+                $date_from .= ' 00:00:00';
             }
 
             if(!empty($request->input('to'))){
-                $date_to .= ' 23-59-59';
+                $date_to .= ' 23:59:59';
             }
             
             if(empty($keyword)&&empty($date_from)&&empty($date_to)){
