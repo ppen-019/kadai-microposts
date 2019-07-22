@@ -64,6 +64,16 @@
                 {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
             </div>
         </div>
+        <div class="row justify-content-sm-center">
+            <h4>Micropostsはメッセージ投稿アプリです。<br>{!! link_to_route('signup.get', 'Sign up') !!}すると右記機能が使えます。</h4>
+            <ul>
+                <li>メッセージ・画像の投稿、編集、削除</li>
+                <li>他のユーザーの投稿閲覧</li>
+                <li>メッセージの検索</li>
+                <li>他のユーザーのフォロー</li>
+                <li>投稿のお気に入り登録</li>
+            </ul>
+        </div>
     @endif
 @endsection
     <!--Bootstrap datepickerのコード
